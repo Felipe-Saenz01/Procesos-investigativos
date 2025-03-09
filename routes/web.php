@@ -4,6 +4,9 @@ use App\Livewire\Settings\Appearance;
 use App\Livewire\Settings\Password;
 use App\Livewire\Settings\Profile;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\PeriodoController;
+use App\Http\Controllers\TipoProductoController;
+use App\Http\Controllers\SubTipoProductoController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -20,5 +23,18 @@ Route::middleware(['auth'])->group(function () {
     Route::get('settings/password', Password::class)->name('settings.password');
     Route::get('settings/appearance', Appearance::class)->name('settings.appearance');
 });
+
+Route::prefix('parametros')->name('parametros.')->group(function () {
+    Route::resource('periodos', PeriodoController::class)
+        ->middleware(['auth', 'verified']);
+
+    Route::resource('tipo-productos', TipoProductoController::class)
+        ->middleware(['auth', 'verified']);
+    Route::resource('subtipo-productos', SubTipoProductoController::class)
+        ->middleware(['auth', 'verified']);
+});
+// Route::resource('periodos', PeriodoController::class)
+// ->middleware(['auth', 'verified']);
+// ->name('periodos');
 
 require __DIR__.'/auth.php';

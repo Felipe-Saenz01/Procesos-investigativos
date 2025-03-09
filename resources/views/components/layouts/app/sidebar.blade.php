@@ -12,14 +12,22 @@
             </a>
 
             <flux:navlist variant="outline">
-                <flux:navlist.group :heading="__('Platform')" class="grid">
+                <flux:navlist.group :heading="__('Modulos')" class="grid">
                     <flux:navlist.item icon="home" :href="route('dashboard')" :current="request()->routeIs('dashboard')" wire:navigate>{{ __('Dashboard') }}</flux:navlist.item>
+                    <flux:navlist.item icon="user-group" :href="route('dashboard')" :current="request()->routeIs('dashboard')" wire:navigate>{{ __('Grupos de Investigación') }}</flux:navlist.item>
+                    <flux:navlist.item icon="clipboard-document-list" :href="route('dashboard')" :current="request()->routeIs('dashboard')" wire:navigate>{{ __('Productos Investigativos') }}</flux:navlist.item>
+                    {{-- <flux:navlist.item icon="calendar" :href="route('periodos.index')" :current="request()->routeIs('periodos.*')" wire:navigate>{{ __('Periodos') }}</flux:navlist.item> --}}
+                </flux:navlist.group>
+                <flux:navlist.group :heading="__('Parametros')" class="grid mt-4"  expandable>
+                    <flux:navlist.item icon="calendar" :href="route('parametros.periodos.index')" :current="request()->routeIs('parametros.periodos*')" wire:navigate>{{ __('Periodos') }}</flux:navlist.item>
+                    <flux:navlist.item icon="rectangle-group" :href="route('parametros.tipo-productos.index')" :current="request()->routeIs('parametros.tipo-productos.*')" wire:navigate>{{ __('Tipo Productos') }}</flux:navlist.item>
+                    <flux:navlist.item icon="queue-list" :href="route('parametros.subtipo-productos.index')" :current="request()->routeIs('parametros.subtipo-productos.*')" wire:navigate>{{ __('Sub Tipo Productos') }}</flux:navlist.item>
                 </flux:navlist.group>
             </flux:navlist>
 
             <flux:spacer />
 
-            <flux:navlist variant="outline">
+            {{-- <flux:navlist variant="outline">
                 <flux:navlist.item icon="folder-git-2" href="https://github.com/laravel/livewire-starter-kit" target="_blank">
                 {{ __('Repository') }}
                 </flux:navlist.item>
@@ -27,7 +35,7 @@
                 <flux:navlist.item icon="book-open-text" href="https://laravel.com/docs/starter-kits" target="_blank">
                 {{ __('Documentation') }}
                 </flux:navlist.item>
-            </flux:navlist>
+            </flux:navlist> --}}
 
             <!-- Desktop User Menu -->
             <flux:dropdown position="bottom" align="start">
