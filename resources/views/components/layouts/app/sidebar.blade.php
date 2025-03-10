@@ -14,8 +14,8 @@
             <flux:navlist variant="outline">
                 <flux:navlist.group :heading="__('Modulos')" class="grid">
                     <flux:navlist.item icon="home" :href="route('dashboard')" :current="request()->routeIs('dashboard')" wire:navigate>{{ __('Dashboard') }}</flux:navlist.item>
-                    <flux:navlist.item icon="user-group" :href="route('dashboard')" :current="request()->routeIs('dashboard')" wire:navigate>{{ __('Grupos de Investigación') }}</flux:navlist.item>
-                    <flux:navlist.item icon="clipboard-document-list" :href="route('dashboard')" :current="request()->routeIs('dashboard')" wire:navigate>{{ __('Productos Investigativos') }}</flux:navlist.item>
+                    <flux:navlist.item icon="user-group" :href="route('grupos-investigacion.index')" :current="request()->routeIs('grupos-investigacion.*')" wire:navigate>{{ __('Grupos de Investigación') }}</flux:navlist.item>
+                    <flux:navlist.item icon="clipboard-document-list" :href="route('productos-investigativos.index')" :current="request()->routeIs('productos-investigativos.*')" wire:navigate>{{ __('Productos Investigativos') }}</flux:navlist.item>
                     {{-- <flux:navlist.item icon="calendar" :href="route('periodos.index')" :current="request()->routeIs('periodos.*')" wire:navigate>{{ __('Periodos') }}</flux:navlist.item> --}}
                 </flux:navlist.group>
                 <flux:navlist.group :heading="__('Parametros')" class="grid mt-4"  expandable>

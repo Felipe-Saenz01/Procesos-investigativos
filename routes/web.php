@@ -7,6 +7,8 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PeriodoController;
 use App\Http\Controllers\TipoProductoController;
 use App\Http\Controllers\SubTipoProductoController;
+use App\Http\Controllers\GrupoInvestigacionController;
+use App\Http\Controllers\ProductoInvestigativoController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -24,6 +26,13 @@ Route::middleware(['auth'])->group(function () {
     Route::get('settings/appearance', Appearance::class)->name('settings.appearance');
 });
 
+Route::resource('grupos-investigacion', GrupoInvestigacionController::class)
+    ->middleware(['auth', 'verified']);
+
+Route::resource('productos-investigativos', ProductoInvestigativoController::class)
+    ->middleware(['auth', 'verified']);
+
+// Rutas parametros
 Route::prefix('parametros')->name('parametros.')->group(function () {
     Route::resource('periodos', PeriodoController::class)
         ->middleware(['auth', 'verified']);

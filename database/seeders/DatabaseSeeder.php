@@ -6,6 +6,9 @@ use App\Models\User;
 use App\Models\TipoProducto;
 use App\Models\SubTipoProducto;
 use App\Models\Periodo;
+use App\Models\GrupoInvestigacion;
+use App\Models\ProductoInvestigativo;
+use App\Models\EntregaProducto;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
@@ -83,6 +86,55 @@ class DatabaseSeeder extends Seeder
             }
         }
 
-        Periodo::factory(20)->create();
+        // Crear grupos de investigación
+        $grupos = GrupoInvestigacion::factory()->count(5)->create();
+
+        // Crear periodos
+        $nombresPeriodos = ['2023-A', '2023-B', '2024-A', '2024-B', '2025-A'];
+        $periodos = collect(); // Crear una colección para almacenar los periodos
+
+        foreach ($nombresPeriodos as $nombre) {
+            $periodo = Periodo::create([
+                'nombre' => $nombre,
+            ]);
+            $periodos->push($periodo); // Agregar el periodo a la colección
+        }
+
+        // Crear usuarios (todos serán investigadores)
+        $roles_users = ['Investigador', 'Lider Grupo'];
+        $investigadores = User::factory()->count(10)->create([
+            'role' => function () use ($roles_users) {
+                return $roles_users[array_rand($roles_users)]; // Asignar un rol aleatorio
+            }, // Todos serán investigadores
+            'grupo_investigacion_id' => function () use ($grupos) {
+                return $grupos->random()->id; // Asignar a un grupo aleatorio
+            },
+        ]);
+
+        // Crear productos investigativos
+        $productos = ProductoInvestigativo::factory()->count(10)->create([
+            'user_id' => function () use ($investigadores) {
+                return $investigadores->random()->id;
+            },
+            'grupo_investigacion_id' => function () use ($grupos) {
+                return $grupos->random()->id;
+            },
+            'sub_tipo_producto_id' => function () {
+                return SubTipoProducto::inRandomOrder()->first()->id;
+            },
+        ]);
+
+        // Crear entregas de productos
+        $productos->each(function ($producto) use ($periodos) {
+            $numeroEntregas = 3; // Cambia este valor según tus necesidades
+
+            // Crear múltiples entregas para el producto actual
+            for ($i = 0; $i < $numeroEntregas; $i++) {
+                EntregaProducto::factory()->create([
+                    'producto_investigativo_id' => $producto->id,
+                    'periodo_id' => $periodos->random()->id,
+                ]);
+            }
+        });
     }
 }

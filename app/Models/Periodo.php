@@ -11,4 +11,8 @@ class Periodo extends Model
     use HasFactory;
 
     protected $fillable = ['nombre'];
+
+    public function entregas() {
+        return $this->hasMany(EntregaProducto::class);
+    }
 }

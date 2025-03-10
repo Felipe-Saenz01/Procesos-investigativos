@@ -22,6 +22,8 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        'role', // Agregar el campo 'role'
+        'grupo_investigacion_id', // Agregar la clave foránea
     ];
 
     /**
@@ -56,5 +58,17 @@ class User extends Authenticatable
             ->explode(' ')
             ->map(fn (string $name) => Str::of($name)->substr(0, 1))
             ->implode('');
+    }
+
+    // Relación con ProductoInvestigativo
+    public function productosInvestigativos()
+    {
+        return $this->hasMany(ProductoInvestigativo::class);
+    }
+
+    // Relación con GrupoInvestigacion
+    public function gruposInvestigacion()
+    {
+        return $this->belongsToMany(GrupoInvestigacion::class);
     }
 }

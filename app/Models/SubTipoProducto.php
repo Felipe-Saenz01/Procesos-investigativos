@@ -18,4 +18,9 @@ class SubTipoProducto extends Model
     public function tipoProducto() {
         return $this->belongsTo(TipoProducto::class);
     }
+
+    public function productosInvestigativos()
+    {
+        return $this->hasMany(ProductoInvestigativo::class);
+    }
 }
