@@ -7,13 +7,15 @@
             </div>
 
             @if ($periodos->isEmpty())
-                <div class="alert alert-info">No hay períodos registrados.</div>
+                <div class="alert alert-info font-bold mx-5 text-xl">No hay períodos registrados.</div>
             @else
                 <div class="px-4 mb-4">
                     <table class="min-w-full bg-white-200 rounded-xl ">
                         <thead class="bg-green-600 text-white">
                             <tr>
                                 <th class="py-2 px-4 border-b">Nombre</th>
+                                <th class="py-2 px-4 border-b">Fecha Limite Planeacion</th>
+                                <th class="py-2 px-4 border-b">Fecha Limite Evidencias</th>
                                 <th class="py-2 px-4 border-b">Fecha Creacion</th>
                                 <th class="py-2 px-4 border-b">Acciones</th>
                             </tr>
@@ -22,6 +24,8 @@
                             @foreach ($periodos as $periodo)
                                 <tr>
                                     <td class="py-2 px-4 border-b">{{ $periodo->nombre }}</td>
+                                    <td class="py-2 px-4 border-b">{{ $periodo->fecha_limite_planeacion->format('d/m/Y') }}</td>
+                                    <td class="py-2 px-4 border-b">{{ $periodo->fecha_limite_evidencias->format('d/m/Y')}}</td>
                                     <td class="py-2 px-4 border-b">{{ $periodo->updated_at->format('d/m/Y H:i') }}</td>
                                     <td class="py-2 px-4 border-b">
                                         {{-- <a href="{{ route('parametros.periodos.edit', $periodo->id) }}"

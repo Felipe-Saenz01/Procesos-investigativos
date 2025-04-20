@@ -8,7 +8,7 @@
             </div>
 
             @if ($tipoProductos->isEmpty())
-                <div class="alert alert-info">No hay tipos de productos investigativos registrados.</div>
+                <div class="alert alert-info font-bold mx-5 text-xl">No hay tipos de productos investigativos registrados.</div>
             @else
                 <div class="px-4 mb-4">
                     <table class="min-w-full bg-white-200 rounded-xl ">

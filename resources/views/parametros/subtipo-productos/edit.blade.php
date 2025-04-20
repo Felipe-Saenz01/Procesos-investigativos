@@ -1,7 +1,7 @@
 <x-layouts.app title="Tipo Productos">
     <div class="container mx-auto">
         <div class="bg-muted flex min-h-svh flex-col items-center justify-center gap-6 ">
-            <div class="flex w-full max-w-md flex-col gap-6 p-5 bg-neutral-700  rounded-xl">
+            <div class="flex w-full max-w-md flex-col gap-6 p-5 dark:bg-neutral-700 bg-gray-100  rounded-xl">
                 <div class="flex w-full flex-col text-center mb-4">
                     <flux:heading size="xl">Editar Subtipo Producto</flux:heading>
                     <flux:subheading>Actualizar un subtipo producto investigativo.</flux:subheading>

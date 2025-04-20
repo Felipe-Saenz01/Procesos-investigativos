@@ -32,8 +32,10 @@ class PeriodoController extends Controller
     {
         $request->validate([
             'nombre' => 'required|string|max:255|unique:periodos',
+            'fecha_limite_planeacion' => 'required|date',
+            'fecha_limite_evidencias' => 'required|date'
         ]);
-        Periodo::create($request->only('nombre'));
+        Periodo::create($request->only('nombre','fecha_limite_planeacion','fecha_limite_evidencias' ));
         return redirect()->route('parametros.periodos.index')->with('success', 'Período creado exitosamente.');
     }
 
@@ -62,8 +64,10 @@ class PeriodoController extends Controller
     {
         $request->validate([
             'nombre' => 'required|string|max:255|unique:periodos,nombre,' . $periodo->id,
+            'fecha_limite_planeacion' => 'required|date',
+            'fecha_limite_evidencias' => 'required|date'
         ]);
-        $periodo->update($request->only('nombre'));
+        $periodo->update($request->only('nombre','fecha_limite_planeacion','fecha_limite_evidencias'));
         return redirect()->route('parametros.periodos.index')->with('success', 'Período actualizado exitosamente.');
     }
 
