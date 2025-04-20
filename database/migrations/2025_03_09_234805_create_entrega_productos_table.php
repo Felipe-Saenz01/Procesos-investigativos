@@ -13,9 +13,12 @@ return new class extends Migration
     {
         Schema::create('entrega_productos', function (Blueprint $table) {
             $table->id();
-            $table->string('archivo');
+            $table->enum('tipo', ['planeacion', 'evidencia']);
+            $table->json('planeacion')->nullable();
             $table->foreignId('periodo_id')->constrained('periodos');
+            $table->foreignId('user_id')->constrained('users');
             $table->foreignId('producto_investigativo_id')->constrained('producto_investigativos');
+            $table->string('evidencia')->nullable();
             $table->timestamps();
         });
     }

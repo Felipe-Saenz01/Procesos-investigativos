@@ -15,9 +15,10 @@ return new class extends Migration
             $table->id();
             $table->string('titulo');
             $table->text('resumen');
-            $table->foreignId('grupo_investigacion_id')->constrained('grupo_investigacions');
-            $table->foreignId('user_id')->constrained('users');
+            // $table->foreignId('grupo_investigacion_id')->constrained('grupo_investigacions');
+            // $table->foreignId('user_id')->constrained('users');
             $table->foreignId('sub_tipo_producto_id')->constrained('sub_tipo_productos');
+            $table->foreignId('proyecto_investigacion_id')->constrained('proyecto_investigacions');
             $table->timestamps();
         });
     }

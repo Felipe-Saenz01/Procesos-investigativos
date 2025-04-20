@@ -11,13 +11,12 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('periodos', function (Blueprint $table) {
+        Schema::create('horas_investigacion', function (Blueprint $table) {
             $table->id();
-            $table->string('nombre')->unique();
-            // $table->date('fecha_inicio');
-            // $table->date('fecha_fin');
-            $table->date('fecha_limite_planeacion');
-            $table->date('fecha_limite_evidencias');
+            $table->foreignId('user_id')->constrained('users');
+            $table->foreignId('periodo_id')->constrained('periodos');
+            $table->integer('horas')->default(0);
+            $table->string('estado')->default('inactivo');
             $table->timestamps();
         });
     }
@@ -27,6 +26,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('periodos');
+        Schema::dropIfExists('horas_investigacion');
     }
 };

@@ -14,7 +14,6 @@ return new class extends Migration
         Schema::table('users', function (Blueprint $table) {
             // Agregar el campo 'role' (tipo de usuario)
             $table->string('role')->default('investigador'); // Valores: administrador, lider, investigador
-
             // Agregar la clave foránea 'grupo_investigacion_id'
             $table->foreignId('grupo_investigacion_id')
                   ->nullable() // Permite valores nulos
