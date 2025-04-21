@@ -3,13 +3,19 @@
         <div class="relative h-full flex-1 overflow-hidden rounded-xl border border-neutral-200 dark:border-neutral-700">
             <div class="flex flex-row gap-4 p-4 items-center">
                 <h1 class="text-3xl font-bold text-center my-5">Periodos</h1>
-                <flux:button variant="primary" icon="plus" href="{{route('parametros.periodos.create')}}" class="mt-2" square />
+                <flux:button variant="primary" icon="plus" href="{{ route('parametros.periodos.create') }}"
+                    class="mt-2" square />
             </div>
 
             @if ($periodos->isEmpty())
                 <div class="alert alert-info font-bold mx-5 text-xl">No hay períodos registrados.</div>
             @else
                 <div class="px-4 mb-4">
+                    @if (session('success'))
+                        <div class="text-green-600 bg-green-100 border border-green-300 p-4 rounded-md mb-4">
+                            {{ session('success') }}
+                        </div>
+                    @endif
                     <table class="min-w-full bg-white-200 rounded-xl ">
                         <thead class="bg-green-600 text-white">
                             <tr>
@@ -24,13 +30,16 @@
                             @foreach ($periodos as $periodo)
                                 <tr>
                                     <td class="py-2 px-4 border-b">{{ $periodo->nombre }}</td>
-                                    <td class="py-2 px-4 border-b">{{ $periodo->fecha_limite_planeacion->format('d/m/Y') }}</td>
-                                    <td class="py-2 px-4 border-b">{{ $periodo->fecha_limite_evidencias->format('d/m/Y')}}</td>
+                                    <td class="py-2 px-4 border-b">
+                                        {{ $periodo->fecha_limite_planeacion->format('d/m/Y') }}</td>
+                                    <td class="py-2 px-4 border-b">
+                                        {{ $periodo->fecha_limite_evidencias->format('d/m/Y') }}</td>
                                     <td class="py-2 px-4 border-b">{{ $periodo->updated_at->format('d/m/Y H:i') }}</td>
                                     <td class="py-2 px-4 border-b">
                                         {{-- <a href="{{ route('parametros.periodos.edit', $periodo->id) }}"
                                             class="text-blue-500 hover:underline">Editar</a> --}}
-                                            <flux:button href="{{route('parametros.periodos.edit', $periodo->id )}}">Editar</flux:button>
+                                        <flux:button href="{{ route('parametros.periodos.edit', $periodo->id) }}">
+                                            Editar</flux:button>
                                         {{-- <flux:modal.trigger :name="'edit-profile-'.$periodo->id">
                                         </flux:modal.trigger> --}}
                                         <form action="{{ route('parametros.periodos.destroy', $periodo->id) }}"

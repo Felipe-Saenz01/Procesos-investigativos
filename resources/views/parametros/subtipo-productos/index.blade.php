@@ -8,9 +8,15 @@
             </div>
 
             @if ($subTipoProductos->isEmpty())
-                <div class="alert alert-info font-bold mx-5 text-xl">No hay subtipos de productos investigativos registrados.</div>
+                <div class="alert alert-info font-bold mx-5 text-xl">No hay subtipos de productos investigativos
+                    registrados.</div>
             @else
                 <div class="px-4 mb-4">
+                    @if (session('success'))
+                        <div class="text-green-600 bg-green-100 border border-green-300 p-4 rounded-md mb-4">
+                            {{ session('success') }}
+                        </div>
+                    @endif
                     <table class="min-w-full bg-white-200 rounded-xl ">
                         <thead class="bg-green-600 text-white">
                             <tr>
@@ -25,7 +31,8 @@
                                 <tr>
                                     <td class="py-2 px-4 border-b">{{ $subTipoProducto->nombre }}</td>
                                     <td class="py-2 px-4 border-b">{{ $subTipoProducto->tipoProducto->nombre }}</td>
-                                    <td class="py-2 px-4 border-b">{{ $subTipoProducto->updated_at->format('d/m/Y H:i') }}
+                                    <td class="py-2 px-4 border-b">
+                                        {{ $subTipoProducto->updated_at->format('d/m/Y H:i') }}
                                     </td>
                                     <td class="py-2 px-4 border-b">
 
