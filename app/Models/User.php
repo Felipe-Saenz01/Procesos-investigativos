@@ -4,6 +4,9 @@ namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Str;
@@ -19,6 +22,7 @@ class User extends Authenticatable
      * @var list<string>
      */
     protected $fillable = [
+        'id',
         'name',
         'email',
         'password',
@@ -61,14 +65,30 @@ class User extends Authenticatable
     }
 
     // Relación con ProductoInvestigativo
-    public function productosInvestigativos()
+    public function productosInvestigativos(): BelongsToMany
     {
-        return $this->hasMany(ProductoInvestigativo::class);
+        return $this->belongsToMany(ProductoInvestigativo::class, 'producto_investigativo_user');
+    }
+
+    // Relacion con HorasInvestigacion
+    public function horasInvestigacion(): HasMany
+    {
+        return $this->hasMany(HorasInvestigacion::class);
     }
 
     // Relación con GrupoInvestigacion
-    public function gruposInvestigacion()
+    public function gruposInvestigacion(): BelongsTo
     {
-        return $this->belongsToMany(GrupoInvestigacion::class);
+        return $this->belongsTo(GrupoInvestigacion::class);
+    }
+
+    public function entregas(): HasMany
+    {
+        return $this->hasMany(EntregaProducto::class);
+    }
+
+    public function proyectos(): HasMany
+    {
+        return $this->hasMany(ProyectoInvestigacion::class);
     }
 }

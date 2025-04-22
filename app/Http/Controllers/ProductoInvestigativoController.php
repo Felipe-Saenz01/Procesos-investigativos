@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\ProductoInvestigativo;
-use App\Models\GrupoInvestigacion;
+use App\Models\ProyectoInvestigacion;
 use Illuminate\Http\Request;
 
 class ProductoInvestigativoController extends Controller
@@ -14,10 +14,9 @@ class ProductoInvestigativoController extends Controller
     public function index()
     {
         // Obtener todos los grupos con sus productos y usuarios
-        $grupos = GrupoInvestigacion::with('productosInvestigativos.usuario', 'productosInvestigativos.subTipoProducto')->get();
-        
+        $productos = ProductoInvestigativo::all();        
         return view('productos-investigativos.index', [
-            'grupos' => $grupos
+            'productos' => $productos
         ]);
     }
 

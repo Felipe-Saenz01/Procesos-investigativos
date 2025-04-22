@@ -9,6 +9,7 @@ use App\Http\Controllers\TipoProductoController;
 use App\Http\Controllers\SubTipoProductoController;
 use App\Http\Controllers\GrupoInvestigacionController;
 use App\Http\Controllers\ProductoInvestigativoController;
+use App\Http\Controllers\ProyectoInvestigacionController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -30,6 +31,9 @@ Route::resource('grupos-investigacion', GrupoInvestigacionController::class)
     ->middleware(['auth', 'verified']);
 
 Route::resource('productos-investigativos', ProductoInvestigativoController::class)
+    ->middleware(['auth', 'verified']);
+
+Route::resource('proyecto-investigacion', ProyectoInvestigacionController::class)
     ->middleware(['auth', 'verified']);
 
 // Rutas parametros

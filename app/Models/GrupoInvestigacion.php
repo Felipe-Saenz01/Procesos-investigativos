@@ -4,6 +4,8 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class GrupoInvestigacion extends Model
 {
@@ -12,13 +14,14 @@ class GrupoInvestigacion extends Model
     
     protected $fillable = ['nombre', 'correo'];
 
-    public function usuarios()
+    public function usuarios(): HasMany
     {
         // return $this->belongsToMany(User::class, 'grupo_investigacion_user', 'grupo_investigacion_id', 'user_id');
         return $this->hasMany(User::class);
     }
 
-    public function productosInvestigativos() {
-        return $this->hasMany(ProductoInvestigativo::class);
+    public function proyectos(): BelongsToMany
+    {
+        return $this->belongsToMany(ProyectoInvestigacion::class, 'proyecto_grupo');
     }
 }

@@ -74,6 +74,22 @@ class DatabaseSeeder extends Seeder
             ],
         ];
 
+        $gruposInvestigacion = [
+            [
+                'nombre' => 'TICTRÓPICO',
+                'correo' => 'tictropico@unitropico.edu.co' 
+            ],
+            [
+                'nombre' => 'GIEROC',
+                'correo' => 'gieroc@unitropico.edu.co' 
+            ],
+            [
+                'nombre' => 'GINBIO',
+                'correo' => 'ginbio@unitropico.edu.co' 
+            ],
+
+        ];
+
         // Crear tipos de productos y sus subtipos
         foreach ($tiposProducto as $tipo) {
             $tipoProducto = TipoProducto::create(['nombre' => $tipo['nombre']]);
@@ -84,6 +100,13 @@ class DatabaseSeeder extends Seeder
                     'tipo_producto_id' => $tipoProducto->id,
                 ]);
             }
+        }
+        // Crear grupos de investigación
+        foreach ($gruposInvestigacion as $grupo) {
+            GrupoInvestigacion::create([
+                'nombre' => $grupo['nombre'],
+                'correo' => $grupo['correo'],
+            ]);
         }
 
         // // Crear grupos de investigación

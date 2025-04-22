@@ -4,6 +4,9 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class ProductoInvestigativo extends Model
 {
@@ -13,32 +16,31 @@ class ProductoInvestigativo extends Model
     protected $fillable = [
         'titulo',
         'resumen',
-        'grupo_investigacion_id',
+        'proyecto_investigacion_id',
         'user_id',
         'sub_tipo_producto_id',
     ];
 
     // Relación con el usuario
-    public function usuario()
+    public function usuarios(): BelongsToMany
     {
-        return $this->belongsTo(User::class, 'user_id');
+        return $this->belongsToMany(User::class, 'producto_investigativo_user');
     }
 
-    // Relación con el grupo de investigación
-    public function grupoInvestigacion()
+    public function proyecto(): BelongsTo
     {
-        return $this->belongsTo(GrupoInvestigacion::class, 'grupo_investigacion_id');
+        return $this->belongsTo(ProyectoInvestigacion::class, 'proyecto_investigacion_id');
     }
 
     // Relación con el subtipo de producto
-    public function subTipoProducto()
+    public function subTipoProducto(): BelongsTo
     {
-        return $this->belongsTo(SubTipoProducto::class, 'sub_tipo_producto_id');
+        return $this->belongsTo(SubTipoProducto::class);
     }
 
     // Relación con las entregas
-    public function entregas()
+    public function entregas(): HasMany
     {
-        return $this->hasMany(EntregaProducto::class, 'producto_investigativo_id');
+        return $this->hasMany(EntregaProducto::class);
     }
 }

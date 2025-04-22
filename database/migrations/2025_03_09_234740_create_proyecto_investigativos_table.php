@@ -15,9 +15,9 @@ return new class extends Migration
             $table->id();
             $table->string('titulo');
             $table->foreignId('user_id')->constrained('users');
-            $table->string('eje-tematico');
-            $table->text('resumen-ejecutivo');
-            $table->text('planteamiento-problema');
+            $table->string('eje_tematico');
+            $table->text('resumen_ejecutivo');
+            $table->text('planteamiento_problema');
             $table->text('antecedentes');
             $table->text('justificacion');
             $table->text('objetivos');
@@ -25,6 +25,7 @@ return new class extends Migration
             $table->text('resultados');
             $table->text('riesgos');
             $table->text('bibliografia');
+            $table->string('estado')->default('En formulación');
             $table->timestamps();
         });
     }
