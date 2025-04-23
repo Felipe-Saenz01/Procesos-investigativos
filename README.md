@@ -45,5 +45,5 @@ php artisan migrate
 
 7. Inciar servidor local:
 ```
-php composer dev
+composer run dev
 ```
