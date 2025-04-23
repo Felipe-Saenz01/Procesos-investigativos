@@ -4,7 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Models\ProductoInvestigativo;
 use App\Models\ProyectoInvestigacion;
+use App\Models\SubTipoProducto;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class ProductoInvestigativoController extends Controller
 {
@@ -25,7 +27,11 @@ class ProductoInvestigativoController extends Controller
      */
     public function create()
     {
-        //
+        $user = Auth::user();
+        return view('productos-investigativos.create',[
+            'subTipos' => SubTipoProducto::all(),
+            'proyectos' => ProyectoInvestigacion::where('user_id', $user->id)->where('estado', 'Formulado')->get(),
+        ]);
     }
 
     /**
@@ -33,7 +39,25 @@ class ProductoInvestigativoController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        // Validar los datos de entrada
+        $request->validate([
+            'titulo' => 'required|string|max:255',
+            'resumen' => 'required|string|max:500',
+            'sub_tipo_producto_id' => 'required|exists:sub_tipo_productos,id',
+            'proyecto_investigacion_id' => 'required|exists:proyecto_investigacions,id',
+        ]);
+
+        // Crear el producto investigativo
+        $producto = ProductoInvestigativo::create([
+            'titulo' => $request->titulo,
+            'resumen' => $request->resumen,
+            'sub_tipo_producto_id' => $request->sub_tipo_producto_id,
+            'proyecto_investigacion_id' => $request->proyecto_investigacion_id,
+        ]);
+        // Asignar usuarios
+        $producto->usuarios()->attach($request->usuarios);
+
+        return redirect()->route('productos-investigativos.index')->with('success', 'Producto investigativo creado exitosamente.');
     }
 
     /**

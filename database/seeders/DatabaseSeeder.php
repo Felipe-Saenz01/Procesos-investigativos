@@ -90,24 +90,24 @@ class DatabaseSeeder extends Seeder
 
         ];
 
-        // Crear tipos de productos y sus subtipos
-        foreach ($tiposProducto as $tipo) {
-            $tipoProducto = TipoProducto::create(['nombre' => $tipo['nombre']]);
+        // // Crear tipos de productos y sus subtipos
+        // foreach ($tiposProducto as $tipo) {
+        //     $tipoProducto = TipoProducto::create(['nombre' => $tipo['nombre']]);
 
-            foreach ($tipo['subtipos'] as $subtipoNombre) {
-                SubTipoProducto::create([
-                    'nombre' => $subtipoNombre,
-                    'tipo_producto_id' => $tipoProducto->id,
-                ]);
-            }
-        }
-        // Crear grupos de investigación
-        foreach ($gruposInvestigacion as $grupo) {
-            GrupoInvestigacion::create([
-                'nombre' => $grupo['nombre'],
-                'correo' => $grupo['correo'],
-            ]);
-        }
+        //     foreach ($tipo['subtipos'] as $subtipoNombre) {
+        //         SubTipoProducto::create([
+        //             'nombre' => $subtipoNombre,
+        //             'tipo_producto_id' => $tipoProducto->id,
+        //         ]);
+        //     }
+        // }
+        // // Crear grupos de investigación
+        // foreach ($gruposInvestigacion as $grupo) {
+        //     GrupoInvestigacion::create([
+        //         'nombre' => $grupo['nombre'],
+        //         'correo' => $grupo['correo'],
+        //     ]);
+        // }
 
         // // Crear grupos de investigación
         // $grupos = GrupoInvestigacion::factory()->count(5)->create();
@@ -123,8 +123,10 @@ class DatabaseSeeder extends Seeder
         //     $periodos->push($periodo); // Agregar el periodo a la colección
         // }
 
+        $grupos = GrupoInvestigacion::all();
+
         // // Crear usuarios (todos serán investigadores)
-        // $roles_users = ['Investigador', 'Lider Grupo'];
+        $roles_users = ['Investigador', 'Lider Grupo'];
         // $investigadores = User::factory()->count(10)->create([
         //     'role' => function () use ($roles_users) {
         //         return $roles_users[array_rand($roles_users)]; // Asignar un rol aleatorio
@@ -133,6 +135,14 @@ class DatabaseSeeder extends Seeder
         //         return $grupos->random()->id; // Asignar a un grupo aleatorio
         //     },
         // ]);
+        User::factory()->count(10)->create([
+            'role' => function () use ($roles_users) {
+                return $roles_users[array_rand($roles_users)]; // Asignar un rol aleatorio
+            }, // Todos serán investigadores
+            'grupo_investigacion_id' => function () use ($grupos) {
+                return $grupos->random()->id; // Asignar a un grupo aleatorio
+            },
+        ]);
 
         // // Crear productos investigativos
         // $productos = ProductoInvestigativo::factory()->count(10)->create([

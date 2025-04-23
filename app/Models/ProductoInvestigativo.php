@@ -35,7 +35,7 @@ class ProductoInvestigativo extends Model
     // Relación con el subtipo de producto
     public function subTipoProducto(): BelongsTo
     {
-        return $this->belongsTo(SubTipoProducto::class);
+        return $this->belongsTo(SubTipoProducto::class, 'sub_tipo_producto_id');
     }
 
     // Relación con las entregas
