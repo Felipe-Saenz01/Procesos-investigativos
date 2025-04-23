@@ -18,7 +18,7 @@
                 <table class="w-4/5 border border-gray-300 rounded-lg">
                     <tbody class="divide-y divide-x divide-gray-300">
                         <tr class="">
-                            <td class="font-bold py-2 bg-green-600 px-2 border-gray-300">Título:</td>
+                            <td class="font-bold py-2 bg-green-600 px-2 border-gray-300 w-1/3">Título:</td>
                             <td class="p-2 ">{{ $productos_investigativo->titulo }}</td>
                         </tr>
                         <tr>
@@ -26,12 +26,25 @@
                             <td class="p-2">{{ $productos_investigativo->resumen }}</td>
                         </tr>
                         <tr>
-                            <td class="font-bold py-2 bg-green-600 px-2 border-gray-300">Grupo de Investigación:</td>
-                            <td class="p-2">{{ $productos_investigativo->grupoInvestigacion->nombre }}</td>
+                            <td class="font-bold py-2 bg-green-600 px-2 border-gray-300">Proyecto de Investigación:</td>
+                            <td class="p-2">{{ $productos_investigativo->proyecto->titulo }}</td>
                         </tr>
                         <tr>
-                            <td class="font-bold py-2 bg-green-600 px-2 border-gray-300">Usuario:</td>
-                            <td class="p-2">{{ $productos_investigativo->usuario->name }}</td>
+                            <td class="font-bold py-2 bg-green-600 px-2 border-gray-300">Investigadores:</td>
+                            <td class="p-2">
+                                {{-- {{ $productos_investigativo->usuario->name }} --}}
+                                @foreach ($productos_investigativo->usuarios as $usuario)
+                                <ul>
+                                    <li class="mb-2 text-sm">
+                                        @if ($usuario->role == 'Investigador')
+                                            <flux:badge color="lime">{{ $usuario->name }}</flux:badge>
+                                        @else
+                                            <flux:badge color="orange">{{ $usuario->name }}</flux:badge>
+                                        @endif
+                                    </li>
+                                </ul>
+                                @endforeach
+                            </td>
                         </tr>
                         <tr>
                             <td class="font-bold py-2 bg-green-600 px-2 border-gray-300">SubTipo de Producto:</td>

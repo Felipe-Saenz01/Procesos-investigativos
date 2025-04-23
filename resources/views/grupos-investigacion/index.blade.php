@@ -55,8 +55,8 @@
                                         @endif
                                     </td>
                                     <td class="py-2 px-4 border-b">
-                                        <flux:button href="{{ route('grupos-investigacion.edit', $grupo) }}">
-                                            Editar</flux:button>
+                                        <flux:button icon="pencil-square" href="{{ route('grupos-investigacion.edit', $grupo) }}">
+                                            </flux:button>
 
                                         <form action="{{ route('grupos-investigacion.destroy', $grupo) }}"
                                             method="POST" class="inline">

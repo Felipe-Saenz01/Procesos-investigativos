@@ -79,7 +79,7 @@ class User extends Authenticatable
     // Relación con GrupoInvestigacion
     public function gruposInvestigacion(): BelongsTo
     {
-        return $this->belongsTo(GrupoInvestigacion::class);
+        return $this->belongsTo(GrupoInvestigacion::class, 'grupo_investigacion_id');
     }
 
     public function entregas(): HasMany

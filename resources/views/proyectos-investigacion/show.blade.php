@@ -98,7 +98,7 @@
                             @foreach ($proyecto->productos as $producto)
                                 <tr>
                                     <td class="py-2 px-4 border-b">
-                                        <a href="{{ route('productos-investigativos.show', $producto)}}" target="_blank"
+                                        <a href="{{ route('productos-investigativos.show', $producto)}}"
                                             class="text-blue-500 hover:underline">
                                             {{ $producto->titulo }}
                                         </a>

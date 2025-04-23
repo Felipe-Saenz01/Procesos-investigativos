@@ -8,6 +8,7 @@ use App\Http\Controllers\PeriodoController;
 use App\Http\Controllers\TipoProductoController;
 use App\Http\Controllers\SubTipoProductoController;
 use App\Http\Controllers\GrupoInvestigacionController;
+use App\Http\Controllers\InvestigadorController;
 use App\Http\Controllers\ProductoInvestigativoController;
 use App\Http\Controllers\ProyectoInvestigacionController;
 
@@ -34,6 +35,9 @@ Route::resource('productos-investigativos', ProductoInvestigativoController::cla
     ->middleware(['auth', 'verified']);
 
 Route::resource('proyecto-investigacion', ProyectoInvestigacionController::class)
+    ->middleware(['auth', 'verified']);
+
+Route::resource('investigadores', InvestigadorController::class)
     ->middleware(['auth', 'verified']);
 
 // Rutas parametros

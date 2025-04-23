@@ -28,9 +28,13 @@ class ProductoInvestigativoController extends Controller
     public function create()
     {
         $user = Auth::user();
+        $proyectos = ProyectoInvestigacion::where('user_id', $user->id)->where('estado', 'Formulado')->get();
+        if ($proyectos->isEmpty()) {
+            return redirect()->route('productos-investigativos.index')->with('error', 'No tienes proyectos de investigación formulados.');
+        }
         return view('productos-investigativos.create',[
             'subTipos' => SubTipoProducto::all(),
-            'proyectos' => ProyectoInvestigacion::where('user_id', $user->id)->where('estado', 'Formulado')->get(),
+            'proyectos' => $proyectos,
         ]);
     }
 
@@ -66,12 +70,7 @@ class ProductoInvestigativoController extends Controller
     public function show(ProductoInvestigativo $productos_investigativo)
     {
         // Obtener el producto con sus relaciones
-        $productos_investigativo->load([
-            'usuario',
-            'grupoInvestigacion',
-            'subTipoProducto',
-            'entregas'
-        ]);
+        
 
         // return $productos_investigativo;
 
