@@ -9,7 +9,12 @@
             </div>
 
             @if ($productos->isEmpty())
-                <div class="alert alert-info">No hay productos de investigativos registrados.</div>
+                @if (session('error'))
+                    <div class="text-red-600 bg-red-100 border border-red-300 p-4 rounded-md mb-4 mx-6">
+                        {{ session('error') }}
+                    </div>
+                @endif
+                <div class="alert alert-info font-bold mx-5 text-xl">No hay productos de investigativos registrados.</div>
             @else
                 <div class="px-4 mb-4">
                     @if (session('error'))

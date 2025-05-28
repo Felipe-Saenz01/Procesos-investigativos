@@ -22,7 +22,7 @@
                                 <th class="py-2 px-4 border-b">Nombre</th>
                                 <th class="py-2 px-4 border-b">Fecha Limite Planeacion</th>
                                 <th class="py-2 px-4 border-b">Fecha Limite Evidencias</th>
-                                <th class="py-2 px-4 border-b">Fecha Creacion</th>
+                                <th class="py-2 px-4 border-b">Estado</th>
                                 <th class="py-2 px-4 border-b">Acciones</th>
                             </tr>
                         </thead>
@@ -34,7 +34,13 @@
                                         {{ $periodo->fecha_limite_planeacion->format('d/m/Y') }}</td>
                                     <td class="py-2 px-4 border-b">
                                         {{ $periodo->fecha_limite_evidencias->format('d/m/Y') }}</td>
-                                    <td class="py-2 px-4 border-b">{{ $periodo->updated_at->format('d/m/Y H:i') }}</td>
+                                    <td class="py-2 px-4 border-b">
+                                        @if ($periodo->estado == 'Activo')
+                                            <flux:badge color="lime">{{ $periodo->estado }}</flux:badge>
+                                        @else
+                                            <flux:badge color="orange">{{ $periodo->estado }}</flux:badge>
+                                        @endif
+                                    </td>
                                     <td class="py-2 px-4 border-b">
                                         {{-- <a href="{{ route('parametros.periodos.edit', $periodo->id) }}"
                                             class="text-blue-500 hover:underline">Editar</a> --}}

@@ -36,7 +36,7 @@ class ProyectoInvestigacionController extends Controller
      */
     public function store(Request $request)
     {
-        return $request;
+        // return $request;
         $status = $request->boolean('es_formulado');
         $user = Auth::user();
         // return $user;

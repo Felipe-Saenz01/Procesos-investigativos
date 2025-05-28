@@ -14,11 +14,11 @@ class HorasInvestigacion extends Model
 
     public function user(): BelongsTo
     {
-        return $this->belongsTo(User::class);
+        return $this->belongsTo(User::class, 'user_id');
     }
 
     public function periodo(): BelongsTo
     {
-        return $this->belongsTo(Periodo::class);
+        return $this->belongsTo(Periodo::class, 'periodo_id');
     }
 }

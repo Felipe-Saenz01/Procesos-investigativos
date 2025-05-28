@@ -8,6 +8,7 @@ use App\Http\Controllers\PeriodoController;
 use App\Http\Controllers\TipoProductoController;
 use App\Http\Controllers\SubTipoProductoController;
 use App\Http\Controllers\GrupoInvestigacionController;
+use App\Http\Controllers\HorasInvestigacionController;
 use App\Http\Controllers\InvestigadorController;
 use App\Http\Controllers\ProductoInvestigativoController;
 use App\Http\Controllers\ProyectoInvestigacionController;
@@ -39,6 +40,13 @@ Route::resource('proyecto-investigacion', ProyectoInvestigacionController::class
 
 Route::resource('investigadores', InvestigadorController::class)
     ->middleware(['auth', 'verified']);
+
+Route::resource('horas-investigacion', HorasInvestigacionController::class)
+    ->middleware(['auth', 'verified']);
+    
+Route::get('horas-investigacion/investigador/{user}', [HorasInvestigacionController::class,'showInvestigador'])
+    ->middleware(['auth', 'verified'])
+    ->name('horas-investigacion.investigador');
 
 // Rutas parametros
 Route::prefix('parametros')->name('parametros.')->group(function () {

@@ -18,6 +18,7 @@ return new class extends Migration
             // $table->date('fecha_fin');
             $table->date('fecha_limite_planeacion');
             $table->date('fecha_limite_evidencias');
+            $table->string('estado')->default('Inactivo');
             $table->timestamps();
         });
     }

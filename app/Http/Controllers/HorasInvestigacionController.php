@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\HorasInvestigacion;
+use App\Models\Periodo;
+use App\Models\User;
 use Illuminate\Http\Request;
 
 class HorasInvestigacionController extends Controller
@@ -12,7 +14,9 @@ class HorasInvestigacionController extends Controller
      */
     public function index()
     {
-        //
+        return view('horas-investigacion.index', [
+            'horasInvestigacion' => HorasInvestigacion::all(),
+        ]);
     }
 
     /**
@@ -20,7 +24,14 @@ class HorasInvestigacionController extends Controller
      */
     public function create()
     {
-        //
+        // $usuarios = User::where('role', 'Investigador')->where('role', 'Lider Grupo')->get();
+        $usuarios = User::whereIn('role', ['Investigador','Lider Grupo'])->get();;
+        return $usuarios;
+        $periodos = Periodo::where('estado', 'Activo')->get();
+        return view('horas-investigacion.create', [
+            'usuarios' => $usuarios,
+            'periodos' => $periodos
+        ]);
     }
 
     /**
@@ -61,5 +72,12 @@ class HorasInvestigacionController extends Controller
     public function destroy(HorasInvestigacion $horasInvestigacion)
     {
         //
+    }
+
+    public function showInvestigador(User $user)
+    {
+        return view('horas-investigacion.investigador', [
+            'user' => $user
+        ]);
     }
 }
