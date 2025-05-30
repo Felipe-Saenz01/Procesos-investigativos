@@ -80,7 +80,32 @@
                 </table>
             </div>
             <flux:separator />
-
+            <h3 class="font-bold text-3xl mb-4 my-5 ml-5">Actividades del Proyecto</h3>
+            @if (empty($proyecto->actividades))
+                <div class="alert alert-info font-bold text-lg m-5">No hay actividades registradas.</div>
+            @else
+                <div class="px-4 mb-4">
+                    <table class="min-w-full bg-white-200 rounded-xl">
+                        <thead class="bg-green-600 w-1/3 text-white">
+                            <tr>
+                                <th class="py-2 px-4 border-b">Nombre de la Actividad</th>
+                                <th class="py-2 px-4 border-b">Fecha de Inicio</th>
+                                <th class="py-2 px-4 border-b">Fecha de Fin</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach ($proyecto->actividades as $actividad)
+                                <tr>
+                                    <td class="py-2 px-4 border-b">{{ $actividad['nombre'] }}</td>
+                                    <td class="py-2 px-4 border-b">{{ \Carbon\Carbon::parse($actividad['fecha_inicio'])->format('d/m/Y') }}</td>
+                                    <td class="py-2 px-4 border-b">{{ \Carbon\Carbon::parse($actividad['fecha_fin'])->format('d/m/Y') }}</td>
+                                </tr>
+                            @endforeach
+                        </tbody>
+                    </table>
+                </div>
+            @endif
+            <flux:separator />
             <h3 class="font-bold text-3xl mb-4 my-5 ml-5">Productos Investigativos</h3>
             @if ($proyecto->productos->isEmpty())
                 <div class="alert alert-info font-bold text-lg m-5">No hay productos investigativos registrados.</div>

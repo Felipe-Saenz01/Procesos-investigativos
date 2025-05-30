@@ -26,6 +26,14 @@ class ProyectoInvestigacion extends Model
         'resultados',
         'riesgos',
         'bibliografia',
+        'actividades',
+        'estado',
+    ];
+
+    protected $casts = [
+        'fecha_inicio' => 'date',
+        'fecha_fin' => 'date',
+        'actividades' => 'array',
     ];
 
     public function productos(): HasMany

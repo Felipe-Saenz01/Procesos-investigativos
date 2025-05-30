@@ -1,8 +1,8 @@
 @push('scripts')
-    <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 @endpush
 
-<x-layouts.app title="Dashboard">
+<x-app-layout title="Dashboard">
     <div class="flex h-full w-full flex-1 flex-col gap-4 p-4">
         <!-- Tarjetas de resumen -->
         <div class="grid grid-cols-1 gap-4 md:grid-cols-4">
@@ -29,110 +29,108 @@
             <!-- Gráfica de Productos por Tipo -->
             <div class="rounded-lg bg-white p-4 shadow dark:bg-gray-800">
                 <h3 class="mb-4 text-lg font-semibold text-gray-700 dark:text-gray-200">Productos por Tipo</h3>
-                <div id="productosChart" class="h-80"></div>
+                <div class="h-80">
+                    <canvas id="productosChart"></canvas>
+                </div>
             </div>
             <!-- Gráfica de Horas de Investigación -->
             <div class="rounded-lg bg-white p-4 shadow dark:bg-gray-800">
                 <h3 class="mb-4 text-lg font-semibold text-gray-700 dark:text-gray-200">Horas de Investigación</h3>
-                <div id="horasChart" class="h-80"></div>
+                <div class="h-80">
+                    <canvas id="horasChart"></canvas>
+                </div>
             </div>
         </div>
 
         <!-- Gráfica inferior -->
         <div class="rounded-lg bg-white p-4 shadow dark:bg-gray-800">
             <h3 class="mb-4 text-lg font-semibold text-gray-700 dark:text-gray-200">Progreso de Proyectos</h3>
-            <div id="proyectosChart" class="h-80"></div>
+            <div class="h-80">
+                <canvas id="proyectosChart"></canvas>
+            </div>
         </div>
     </div>
 
     <script>
-        // Gráfica de Productos por Tipo
-        var productosOptions = {
-            series: [{
-                data: [44, 55, 41, 37, 22]
-            }],
-            chart: {
-                type: 'bar',
-                height: 320,
-                foreColor: '#9ca3af'
-            },
-            plotOptions: {
-                bar: {
-                    borderRadius: 4,
-                    horizontal: true,
-                }
-            },
-            colors: ['#6366f1'],
-            dataLabels: {
-                enabled: false
-            },
-            xaxis: {
-                categories: ['Artículos', 'Libros', 'Patentes', 'Ponencias', 'Software'],
-            }
-        };
-
-        // Gráfica de Horas de Investigación
-        var horasOptions = {
-            series: [{
-                name: 'Horas',
-                data: [30, 40, 45, 50, 49, 60, 70]
-            }],
-            chart: {
-                type: 'area',
-                height: 320,
-                foreColor: '#9ca3af'
-            },
-            stroke: {
-                curve: 'smooth'
-            },
-            colors: ['#8b5cf6'],
-            xaxis: {
-                categories: ['Ene', 'Feb', 'Mar', 'Abr', 'May', 'Jun', 'Jul']
-            },
-            fill: {
-                type: 'gradient',
-                gradient: {
-                    shadeIntensity: 1,
-                    opacityFrom: 0.7,
-                    opacityTo: 0.3,
-                }
-            }
-        };
-
-        // Gráfica de Progreso de Proyectos
-        var proyectosOptions = {
-            series: [{
-                name: 'En Proceso',
-                data: [44, 55, 57, 56, 61, 58, 63]
-            }, {
-                name: 'Completados',
-                data: [76, 85, 101, 98, 87, 105, 91]
-            }],
-            chart: {
-                type: 'line',
-                height: 320,
-                foreColor: '#9ca3af'
-            },
-            colors: ['#10b981', '#f59e0b'],
-            stroke: {
-                width: [4, 4]
-            },
-            xaxis: {
-                categories: ['Ene', 'Feb', 'Mar', 'Abr', 'May', 'Jun', 'Jul'],
-            },
-            legend: {
-                position: 'top'
-            }
-        };
-
         document.addEventListener('DOMContentLoaded', function() {
-            var productosChart = new ApexCharts(document.querySelector("#productosChart"), productosOptions);
-            var horasChart = new ApexCharts(document.querySelector("#horasChart"), horasOptions);
-            var proyectosChart = new ApexCharts(document.querySelector("#proyectosChart"), proyectosOptions);
-            
-            productosChart.render();
-            horasChart.render();
-            proyectosChart.render();
+            // Configuración común para modo oscuro
+            Chart.defaults.color = document.documentElement.classList.contains('dark') ? '#9ca3af' : '#374151';
+            Chart.defaults.borderColor = document.documentElement.classList.contains('dark') ? '#374151' : '#e5e7eb';
+
+            // Gráfica de Productos por Tipo
+            new Chart(document.getElementById('productosChart'), {
+                type: 'bar',
+                data: {
+                    labels: ['Artículos', 'Libros', 'Patentes', 'Ponencias', 'Software'],
+                    datasets: [{
+                        label: 'Cantidad',
+                        data: [44, 55, 41, 37, 22],
+                        backgroundColor: '#6366f1',
+                        borderRadius: 4
+                    }]
+                },
+                options: {
+                    indexAxis: 'y',
+                    responsive: true,
+                    maintainAspectRatio: false
+                }
+            });
+
+            // Gráfica de Horas de Investigación
+            new Chart(document.getElementById('horasChart'), {
+                type: 'line',
+                data: {
+                    labels: ['Ene', 'Feb', 'Mar', 'Abr', 'May', 'Jun', 'Jul'],
+                    datasets: [{
+                        label: 'Horas',
+                        data: [30, 40, 45, 50, 49, 60, 70],
+                        fill: true,
+                        backgroundColor: 'rgba(139, 92, 246, 0.2)',
+                        borderColor: '#8b5cf6',
+                        tension: 0.4
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false
+                }
+            });
+
+            // Gráfica de Progreso de Proyectos
+            new Chart(document.getElementById('proyectosChart'), {
+                type: 'line',
+                data: {
+                    labels: ['Ene', 'Feb', 'Mar', 'Abr', 'May', 'Jun', 'Jul'],
+                    datasets: [{
+                        label: 'En Proceso',
+                        data: [44, 55, 57, 56, 61, 58, 63],
+                        borderColor: '#10b981',
+                        tension: 0.4
+                    }, {
+                        label: 'Completados',
+                        data: [76, 85, 101, 98, 87, 105, 91],
+                        borderColor: '#f59e0b',
+                        tension: 0.4
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    interaction: {
+                        intersect: false,
+                        mode: 'index'
+                    }
+                }
+            });
+        });
+
+        // Actualizar gráficas cuando cambie el tema
+        window.addEventListener('theme-changed', () => {
+            Chart.instances.forEach(chart => {
+                chart.destroy();
+            });
+            // Re-ejecutar el código de inicialización
+            document.dispatchEvent(new Event('DOMContentLoaded'));
         });
     </script>
-</x-layouts.app>
+</x-app-layout>

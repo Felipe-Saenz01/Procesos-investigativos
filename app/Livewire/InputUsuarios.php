@@ -9,12 +9,14 @@ class InputUsuarios extends Component
 {
     public array $usuarios = [[]];
     public array $usuariosSeleccionados  = [];
+    public $selectedUserId = '';
 
     public function addUsuario($id)
     {
-        if (!in_array($id, $this->usuariosSeleccionados)) {
+        if (!empty($id) && !in_array($id, $this->usuariosSeleccionados)) {
             $this->usuariosSeleccionados[] = $id;
         }
+        $this->selectedUserId = '';
     }
 
     public function removeUsuario($index)
@@ -31,7 +33,10 @@ class InputUsuarios extends Component
 
     public function render()
     {
-        $usuariosDisponibles = User::whereNotIn('id', $this->usuariosSeleccionados)->get();
+        $usuariosDisponibles = User::whereNotIn('id', $this->usuariosSeleccionados)
+            ->whereIn('role', ['Investigador', 'Lider Grupo'])
+            ->orderBy('name')
+            ->get();
 
         return view('livewire.input-usuarios', [
             'usuariosDisponibles' => $usuariosDisponibles,

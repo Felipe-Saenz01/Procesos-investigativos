@@ -22,9 +22,15 @@
             <flux:textarea label="Riesgos" value="{{old('riesgos')}}" name="riesgos" id="riesgos" />
             <flux:textarea label="Bibliografía" value="{{old('bibliografia')}}" name="bibliografia" id="bibliografia" />
         </div>
-        @else
+
+        {{-- Componente de Actividades --}}
+        <div class="col-span-2 mt-6">
+            <livewire:input-actividades :actividades="old('actividades', [])" />
+        </div>
+
+    @else
         {{-- Campo único centrado --}}
-        <div class="flex  justify-center ">
+        <div class="flex justify-center">
             <div class="w-full max-w-md">
                 <flux:input class="mb-4" label="Título del proyecto" name="titulo" id="titulo" value="{{old('titulo')}}" />
                 <flux:input label="Eje Tematico" value="{{old('eje_tematico')}}" name="eje_tematico" id="eje_tematico" />

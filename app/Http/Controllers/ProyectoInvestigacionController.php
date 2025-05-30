@@ -53,6 +53,10 @@ class ProyectoInvestigacionController extends Controller
                 'resultados' => 'required|string',
                 'riesgos' => 'required|string',
                 'bibliografia' => 'required|string',
+                'actividades' => 'nullable|array',
+                'actividades.*.nombre' => 'required|string|max:255',
+                'actividades.*.fecha_inicio' => 'required|date',
+                'actividades.*.fecha_fin' => 'required|date|after:actividades.*.fecha_inicio',
             ]);
 
             $proyecto = ProyectoInvestigacion::create([
@@ -68,6 +72,7 @@ class ProyectoInvestigacionController extends Controller
                 'resultados' => $request->resultados,
                 'riesgos' => $request->riesgos,
                 'bibliografia' => $request->bibliografia,
+                'actividades' => $request->actividades,
                 'estado' => 'Formulado',
             ]);
             $proyecto->grupos()->attach($user->grupo_investigacion_id);
@@ -131,17 +136,53 @@ class ProyectoInvestigacionController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(ProyectoInvestigacion $proyectoInvestigativo)
+    public function edit(ProyectoInvestigacion $proyecto_investigacion)
     {
-        //
+        return view('proyectos-investigacion.edit', [
+            'proyecto' => $proyecto_investigacion
+        ]);
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, ProyectoInvestigacion $proyectoInvestigativo)
+    public function update(Request $request, ProyectoInvestigacion $proyecto_investigacion)
     {
-        //
+        $request->validate([
+            'titulo' => 'required|string|max:255',
+            'eje_tematico' => 'required|string|max:255',
+            'resumen_ejecutivo' => 'required|string',
+            'planteamiento_problema' => 'required|string',
+            'antecedentes' => 'required|string',
+            'justificacion' => 'required|string',
+            'objetivos' => 'required|string',
+            'metodologia' => 'required|string',
+            'resultados' => 'required|string',
+            'riesgos' => 'required|string',
+            'bibliografia' => 'required|string',
+            'actividades' => 'nullable|array',
+            'actividades.*.nombre' => 'required|string|max:255',
+            'actividades.*.fecha_inicio' => 'required|date',
+            'actividades.*.fecha_fin' => 'required|date|after:actividades.*.fecha_inicio',
+        ]);
+
+        $proyecto_investigacion->update([
+            'titulo' => $request->titulo,
+            'eje_tematico' => $request->eje_tematico,
+            'resumen_ejecutivo' => $request->resumen_ejecutivo,
+            'planteamiento_problema' => $request->planteamiento_problema,
+            'antecedentes' => $request->antecedentes,
+            'justificacion' => $request->justificacion,
+            'objetivos' => $request->objetivos,
+            'metodologia' => $request->metodologia,
+            'resultados' => $request->resultados,
+            'riesgos' => $request->riesgos,
+            'bibliografia' => $request->bibliografia,
+            'actividades' => $request->actividades,
+        ]);
+
+        return redirect()->route('proyecto-investigacion.show', $proyecto_investigacion)
+            ->with('success', 'Proyecto de investigación actualizado exitosamente.');
     }
 
     /**
