@@ -1,6 +1,10 @@
-<div class="flex aspect-square size-8 items-center justify-center rounded-md bg-accent-content text-accent-foreground">
-    <x-app-logo-icon class="size-5 fill-current text-white dark:text-black" />
-</div>
-<div class="ml-1 grid flex-1 text-left text-sm">
-    <span class="mb-0.5 truncate leading-none font-semibold">Investigación Unitrópico</span>
+<div class="flex items-center">
+    <div class="flex items-center justify-center h-10 w-10 bg-white dark:bg-white rounded-lg shadow-sm">
+        <img src="{{ asset('try-logo.png') }}" alt="Logo Unitrópico" class="h-8 w-8 object-contain" />
+        {{-- <img src="{{ asset('escudo-unitropico_3.png') }}" alt="Logo Unitrópico" class="h-8 w-8 object-contain" />
+        <img src="{{ asset('escudo-unitropico_4.png') }}" alt="Logo Unitrópico" class="h-8 w-8 object-contain" /> --}}
+    </div>
+    <div class="ml-2 grid flex-1 text-left text-sm">
+        <span class="mb-0.5 truncate leading-none font-semibold text-black dark:text-white">Investigación Unitrópico</span>
+    </div>
 </div>

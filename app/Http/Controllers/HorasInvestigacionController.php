@@ -55,7 +55,19 @@ class HorasInvestigacionController extends Controller
      */
     public function edit(HorasInvestigacion $horasInvestigacion)
     {
-        //
+        $periodos = Periodo::where('estado', 'Activo')
+            ->get()
+            ->map(function($periodo) {
+                return [
+                    'value' => $periodo->id,
+                    'label' => $periodo->nombre
+                ];
+            });
+
+        return view('horas-investigacion.edit', [
+            'horaInvestigacion' => $horasInvestigacion,
+            'periodos' => $periodos
+        ]);
     }
 
     /**
@@ -63,7 +75,19 @@ class HorasInvestigacionController extends Controller
      */
     public function update(Request $request, HorasInvestigacion $horasInvestigacion)
     {
-        //
+        $request->validate([
+            'periodo_id' => 'required|exists:periodos,id',
+            'horas' => 'required|integer|min:1|max:40',
+        ]);
+
+        $horasInvestigacion->update([
+            'periodo_id' => $request->periodo_id,
+            'horas' => $request->horas,
+        ]);
+
+        return redirect()
+            ->route('horas-investigacion.index')
+            ->with('success', 'Horas de investigación actualizadas correctamente.');
     }
 
     /**
